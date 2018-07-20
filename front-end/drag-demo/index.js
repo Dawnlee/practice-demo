@@ -1,8 +1,12 @@
+/**
+ * @author Dawnlee
+ * @desc 列表上下拖动，拖动动效
+ * @refs https://blog.csdn.net/baidu_31333625/article/details/53811510
+ */
 var iosDragDropShim = { enableEnterLeave: true }                // 兼容移动端
 var source = document.querySelectorAll('.list'),
     recycle = document.getElementById('recycle'),
     dragElement = null,                                         // 用于存放拖动元素
-    lock = true;                                                // 最后元素拖放拖放时会进入enter和leave的循环，用来锁住
     y = 0;
 
 for(var i = 0; i < source.length; i++){
@@ -19,6 +23,7 @@ for(var i = 0; i < source.length; i++){
 
     source[i].addEventListener('dragenter', function(ev){
         if(dragElement != this){
+            // 向上拖动
             if(ev.pageY - y < 0){
                 this.parentNode.insertBefore(dragElement,this);     // 把拖动元素添加到当前元素的前面
                 $(this).addClass('item-down')
@@ -30,6 +35,7 @@ for(var i = 0; i < source.length; i++){
                 }.bind(this),200)
                 y = ev.pageY;
             }
+            // 向下拖动
             else if(ev.pageY - y > 0) {
                 this.parentNode.insertBefore(dragElement, this.nextSibling);
                 $(this).addClass('item-up')
@@ -44,22 +50,23 @@ for(var i = 0; i < source.length; i++){
         }
     }, false)
 
-    source[i].addEventListener('drag1',function (ev) {
+
+    source[i].addEventListener('drag',function (ev) {
         console.log(ev);
     })
 
-    source[i].addEventListener('dragleave1', function(ev){
-        console.log(111);
-        if(dragElement != this){
-            console.log(this.innerText);
-            if(lock && (this == this.parentNode.lastElementChild || this == this.parentNode.lastChild)){    // 当前元素时最后一个元素
-                this.parentNode.appendChild(dragElement);       // 把拖动元素添加最后面
-                lock = true;
-            }else{
-                lock = true;
-            }
-        }
-    }, false)
+    // source[i].addEventListener('dragleave', function(ev){
+    //     console.log(111);
+    //     if(dragElement != this){
+    //         console.log(this.innerText);
+    //         if(lock && (this == this.parentNode.lastElementChild || this == this.parentNode.lastChild)){    // 当前元素时最后一个元素
+    //             this.parentNode.appendChild(dragElement);       // 把拖动元素添加最后面
+    //             lock = true;
+    //         }else{
+    //             lock = true;
+    //         }
+    //     }
+    // }, false)
 };
 
 recycle.addEventListener('drop', function(ev){                  // 拖进回收站则删除该元素
