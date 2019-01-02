@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="background: gray;display: flex;flex-direction: column;position: absolute;top: 0px; left: 0px;bottom: 0px;width: 100px">
+    <div style="background: black;word-break: break-all">
+safdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+    </div>
+    <div style="background: antiquewhite;flex-grow: 1">
+        <div style="height: 800px"></div>
+    </div>
+</div>
+<script>
+    function add(m) {
+        var res = m;
+        function plus(n) {
+            if(typeof n == 'undefined'){
+                return res
+            }
+            else {
+                res += n;
+                return plus;
+            }
+        }
+        plus.valueOf= function () {
+            return res;
+        };
+        return plus;
+    };
+</script>
+</body>
+</html>

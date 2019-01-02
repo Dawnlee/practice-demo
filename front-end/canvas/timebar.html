@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="timebar" style="height: 80px;box-shadow: 2px 2px 9px 2px lightgrey">
+
+</div>
+<script>
+    var canvas = document.createElement('canvas');
+    var container = document.getElementById('timebar');
+    container.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+    var ratio = window.devicePixelRatio;
+    canvas.width = document.body.clientWidth * ratio;
+    canvas.height = document.body.clientHeight * ratio;
+    canvas.style.transformOrigin = '0 0';
+    canvas.style.transform = `scale(${1/ratio})`;
+    render();
+    bind();
+
+    function render() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.scale(ratio,ratio);
+        
+    }
+
+    
+    function bind() {
+        canvas.addEventListener('mousewheel', e=> {
+            console.log(e.wheelDelta);
+            if(e.wheelDelta < 0) {
+                console.log('down')
+            }
+            else {
+                console.log('up')
+            }
+        })
+    }
+    
+    function draw() {
+        
+    }
+
+    function drawLine(x, height = 10) {
+        ctx.beginPath();
+        ctx.lineWidth = 1;
+        ctx.moveTo(x,0);
+        ctx.lineTo(x,height);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="c1" width="800" height="500"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('c1');
+    var ctx = canvas.getContext('2d');
+    var cacheCanvas = document.createElement('canvas');
+    var cacheCtx = cacheCanvas.getContext('2d');
+    console.time('test')
+    cacheCtx.lineWidth = 0;
+    cacheCtx.strokeStyle = '#11cccc'
+    cacheCtx.fillStyle = '#11cccc';
+    cacheCtx.beginPath();
+    cacheCtx.arc(10,10,10,0,Math.PI*2);
+    cacheCtx.closePath();
+    cacheCtx.stroke();
+    cacheCtx.fill();
+    cacheCtx.closePath();
+    // ctx.imageSmoothingQuality= 'high';
+    ctx.strokeStyle = '#eeeeee'
+    ctx.fillStyle = '#eeeeee';
+
+
+    for(let i = 0; i< 1; i++){
+
+        ctx.drawImage(cacheCanvas,0,0,20,20,60,60,20,20)
+        // ctx.closePath();
+        //
+        // ctx.stroke();
+        //
+        // ctx.fill();
+    }
+
+    console.timeEnd('test')
+</script>
+</html>
