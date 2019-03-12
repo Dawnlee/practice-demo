@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body{
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #c1 {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<canvas id="c1">
+
+</canvas>
+</body>
+<script>
+    var canvasEle = document.getElementsByTagName('canvas')[0];
+    var scaleRatio = 1, translateX = 0,translateY = 0;
+    canvasEle.width = window.innerWidth;
+    canvasEle.height = window.innerHeight;
+    var ctx = canvasEle.getContext('2d');
+
+    drawPolygon();
+    function drawPolygon() {
+        ctx.clearRect(0,0,window.innerWidth*scaleRatio,window.innerHeight*scaleRatio);
+        ctx.beginPath();
+        ctx.moveTo(100,100);
+        ctx.lineTo(400,100);
+        ctx.lineTo(400,400);
+        ctx.lineTo(100,400);
+        ctx.lineTo(100,100)
+        ctx.closePath();
+        ctx.fillStyle = '#eeeeee';
+        ctx.strokeStyle = '#aaaaaa';
+        ctx.lineWidth = 2;
+        ctx.shadowBlur = 0
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    document.addEventListener('click', (e)=> {
+        console.log(e.offsetX);
+        console.log(e.offsetY);
+        x = (e.offsetX - translateX*scaleRatio)/scaleRatio;
+        y = (e.offsetY - translateY*scaleRatio)/scaleRatio;
+        console.log(x);
+        console.log(y);
+    })
+
+    document.addEventListener('mousewheel', (e)=>{
+        //放大
+        if(e.wheelDelta > 0){
+            var x = e.offsetX;
+            var y = e.offsetY;
+            x = (x - translateX*scaleRatio)/scaleRatio;
+            y = (y - translateY*scaleRatio)/scaleRatio;
+            scaleRatio = Number((scaleRatio + 0.05).toFixed(2));
+            if(scaleRatio > 3){
+                scaleRatio = 3
+            }
+            var tx = (e.offsetX - x)/scaleRatio;
+            var ty = (e.offsetY - y)/scaleRatio;
+            translateX = -(x*scaleRatio - x)/scaleRatio;
+            translateY = -(y*scaleRatio - y)/scaleRatio;
+            ctx.save();
+            ctx.scale(scaleRatio,scaleRatio);
+            ctx.translate(translateX,translateY);
+            console.log(x);
+            console.log(y);
+            ctx.translate(tx,ty);
+            drawPolygon();
+            ctx.restore();
+        }
+        else {
+            var x = e.offsetX;
+            var y = e.offsetY;
+            x = (x - translateX*scaleRatio)/scaleRatio;
+            y = (y - translateY*scaleRatio)/scaleRatio;
+            scaleRatio = Number((scaleRatio - 0.05).toFixed(2));
+            if(scaleRatio < 0.5){
+                scaleRatio = 0.5;
+            }
+            var tx = (e.offsetX - x)/scaleRatio;
+            var ty = (e.offsetY - y)/scaleRatio;
+            translateX = -(x*scaleRatio - x)/scaleRatio;
+            translateY = -(y*scaleRatio - y)/scaleRatio;
+            console.log(translateX);
+            console.log(translateY);
+            ctx.save();
+            ctx.scale(scaleRatio,scaleRatio);
+            ctx.translate(translateX,translateY);
+            console.log(tx);
+            console.log(ty);
+            ctx.translate(tx,ty);
+            drawPolygon();
+            ctx.restore();
+        }
+    })
+</script>
+</html>

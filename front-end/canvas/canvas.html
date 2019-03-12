@@ -5,6 +5,19 @@
     <title>Title</title>
 </head>
 <body>
+<div>
+    sum = 0;
+    res.data.list.forEach(v=>{
+    if(v.name == '中华人民共和国'){
+    console.log(v)
+    v.geometry.coordinates.forEach(item => {
+    item.forEach(sv=>{
+    sum += sv.length
+    })
+    })}}
+
+    )
+</div>
 <canvas id="c1" width="800" height="500"></canvas>
 </body>
 <script>
@@ -17,7 +30,7 @@
     cacheCtx.strokeStyle = '#11cccc'
     cacheCtx.fillStyle = '#11cccc';
     cacheCtx.beginPath();
-    cacheCtx.arc(10,10,10,0,Math.PI*2);
+    cacheCtx.arc(5,5,5,0,Math.PI*2);
     cacheCtx.closePath();
     cacheCtx.stroke();
     cacheCtx.fill();
@@ -27,14 +40,24 @@
     ctx.fillStyle = '#eeeeee';
 
 
-    for(let i = 0; i< 1; i++){
+    for(let i = 0; i< 500; i++){
+        ctx.beginPath();
+        ctx.moveTo(100,200);
+        ctx.lineTo(200,200);
+        for(let j = 0; j < 200; j++){
+            ctx.lineTo(200,200);
+        }
 
-        ctx.drawImage(cacheCanvas,0,0,20,20,60,60,20,20)
+        // ctx.lineTo(12*i,12*i);
+        ctx.closePath();
+        // ctx.drawImage(cacheCanvas,0,0,10,10,60,60,10,10)
+        // ctx.beginPath();
+        // ctx.arc(5,5,5,0,Math.PI*2);
         // ctx.closePath();
         //
-        // ctx.stroke();
-        //
-        // ctx.fill();
+        ctx.stroke();
+
+        ctx.fill();
     }
 
     console.timeEnd('test')

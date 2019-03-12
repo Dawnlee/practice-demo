@@ -1,3 +1,4 @@
+<!-- https://3dtransforms.desandro.com/card-flip perspective3D-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +9,14 @@
             width: 100px;
             height: 100px;
             /*perspective: 100px;*/
-            transform-style: preserve-3d;
+            /*transform-style: preserve-3d;*/
         }
         .d2 {
             width: 100px;
             height: 100px;
             background: lightgray;
-            transform: rotateX(45deg) rotateY(45deg);
+            transform-origin: right center;
+            transform: translateX(-100%);
             /*perspective: 100px;*/
             background: url("Desert.jpg");
         }
