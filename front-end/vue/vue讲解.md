@@ -60,13 +60,13 @@ virtual dom另外一个好处是可以渲染到dom以外的backend，比如react
 key的作用主要是为了高效的更新虚拟DOM
 
 
-diff过程
-![avatar](https://github.com/Dawnlee/practice-demo/blob/develop/front-end/vue/vue1.png?raw=true)  
+diff过程:  
+![avatar](https://github.com/Dawnlee/practice-demo/blob/develop/front-end/vue/diff.png?raw=true)  
 diff算法是通过同层的树节点进行比较而非对树进行逐层搜索遍历的方式，所以时间复杂度只有O(n)，是一种非常高效的算法。  
 当oldVnode与vnode在sameVnode的时候才会进行patchVnode,否则就是新增节点或者删除节点
 
 patchVnode的规则是这样的：  
-1.如果新vnode和旧vnode都是静态节点，key相同，或者新vnode是一次性渲染或者克隆节点，那么直接替换该组件实例并返回
+1.如果新vnode和旧vnode都是静态节点，key相同，或者新vnode是一次性渲染或者克隆节点，那么直接替换该组件实例并返回  
 2.新老节点均有children子节点，则对子节点进行diff操作，调用updateChildren，这个updateChildren也是diff的核心。  
 3.如果老节点没有子节点而新节点存在子节点，先清空老节点DOM的文本内容，然后为当前DOM节点加入子节点。  
 4.当新节点没有子节点而老节点有子节点的时候，则移除该DOM节点的所有子节点。  
