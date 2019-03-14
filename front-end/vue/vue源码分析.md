@@ -34,25 +34,21 @@ this.text3 = 'modify text3';
 实现：  
 定义watcher  
 定义Dep，存放watcher观察者对象   
-在执行render function时候进行依赖收集
+在执行render function时候调用属性getter函数进行依赖收集
 
-Object.defineProperty缺点：
-Proxy
-
-#### Vnode节点
-在之前进行视图更新的时候，直接将更新后的dom用innerhtml修改到页面上，这样重绘整个视图是比较耗费性能的。  
+#### Vnode节点、Virtual Dom 与diff
+在前面进行视图更新的时候，直接将更新后的dom用innerhtml修改到页面上，这样重绘整个视图是比较耗费性能的。  
 vue.js将整个dom抽象成以JavaScript对象为节点虚拟dom树。我们可以对虚拟dom树进行增加节点、删除节点等等操作。  
 修改后通过diff算法得到修改dom的最小操作，相比较于innerhtml修改，大大提高了性能。 
 
-#### Virtual Dom 与diff
 我们可以比较一下 innerHTML vs. Virtual DOM 的重绘性能消耗： 
 innerHTML: render html string O(template size) + 重新创建所有 DOM 元素 O(DOM size)  
 Virtual DOM: render Virtual DOM + diff O(template size) + 必要的 DOM 更新 O(DOM change)  
+reder virtural dom + diff 虽然比render html string慢,但是js计算是远远快于dom操作的，可以看到innerHtml是和整个页面大小有关。
+而virtual dom是和数据变化量有关。
 
-可以渲染到dom以外的backend，比如react native
+virtual dom另外一个好处是可以渲染到dom以外的backend，比如react native
 
 为什么使用v-for时必须添加唯一的key?
-
-#### vuex
- mvvm框架的检查是数据层面的，React 的检查是 DOM 结构层面的
-
+使用v-for更新已渲染的元素列表时,默认用就地复用策略;列表数据修改的时候,他会根据key值去判断某个值是否修改,如果修改,则重新渲染这一项,否则复用之前的元素;
+我们在使用的时候经常会使用index(即数组的下标)来作为key,但其实这是不推荐的一种使用方法;
