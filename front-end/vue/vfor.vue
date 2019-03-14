@@ -1,6 +1,11 @@
+<!--
+npm install -g @vue/cli-service-global
+npm install -g @vue/cli
+vue serve vfor.vue
+-->
 <template>
     <div>
-        <div v-for="(item, index) in list" :key="item.id" >{{item.name}}</div>
+        <div v-for="(item, index) in list" :key="index" >{{item.name}}</div>
     </div>
 </template>
 <script>
