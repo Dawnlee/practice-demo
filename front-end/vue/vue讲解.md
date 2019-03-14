@@ -3,7 +3,7 @@
 3. VNode节点
 4. Virtual Dom与diff
 
-![avatar](https://user-gold-cdn.xitu.io/2017/12/19/1606e7eaa2a664e8?imageslim)
+![avatar](https://github.com/Dawnlee/practice-demo/blob/develop/front-end/vue/vue1.png?raw=true)
 
 #### 响应式原理
 
@@ -49,6 +49,9 @@ reder virtural dom + diff 虽然比render html string慢,但是js计算是远远
 
 virtual dom另外一个好处是可以渲染到dom以外的backend，比如react native
 
-为什么使用v-for时必须添加唯一的key?
+为什么使用v-for时必须添加唯一的key?  
 使用v-for更新已渲染的元素列表时,默认用就地复用策略;列表数据修改的时候,他会根据key值去判断某个值是否修改,如果修改,则重新渲染这一项,否则复用之前的元素;
 我们在使用的时候经常会使用index(即数组的下标)来作为key,但其实这是不推荐的一种使用方法;
+
+
+key的作用主要是为了高效的更新虚拟DOM
